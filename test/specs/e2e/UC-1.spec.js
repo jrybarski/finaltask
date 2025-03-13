@@ -1,3 +1,5 @@
+import loginPage from '../../pages/LoginPage.js';
+import DataProvider from "../../../utils/dataProvider.js";
 
 describe("Test Login form with empty credentials", () => {
 
@@ -14,9 +16,13 @@ describe("Test Login form with empty credentials", () => {
 
 
        //Deleting values from inputs
-       
-       await loginPage.clearInput('username');
-       await loginPage.clearInput('password');
+       for(let i=0; i < username.length; i++) {
+        await loginPage.clearInput('username');
+       };
+
+       for(let i=0; i < password.length; i++) {
+        await loginPage.clearInput('password');
+       };
 
        //Hit the "Login" button
 

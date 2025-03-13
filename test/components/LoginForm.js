@@ -23,6 +23,7 @@ class LoginForm {
     async clearInput(inputElement) {
         await inputElement.click();
         await browser.keys('Backspace');
+        
     }
 
     async fillUsername(username) {
