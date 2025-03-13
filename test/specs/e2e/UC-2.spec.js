@@ -23,7 +23,7 @@ describe("Test Login form with credentials by passing Username", () => {
 
        await $('//input[@id="login-button"]').click();
 
-        //Check the error messages: "Username is required".
+        //Check the error messages: "Password is required".
        await expect($(`//div[contains(@class, 'error-message-container')]`)).toHaveText("Epic sadface: Password is required");
     
 
