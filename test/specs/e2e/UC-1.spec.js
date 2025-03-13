@@ -5,7 +5,7 @@ describe("Test Login form with empty credentials", () => {
     })
     
 
-    it("Type any credentials into 'Username' and 'Password' fields.", async() => {
+    it("Should validate proper error 'Username is required'", async() => {
         //Finding input elements and setting values into it
        await $('//input[@id="user-name"]').setValue("a");
        await $('//input[@id="password"]').setValue("b")
