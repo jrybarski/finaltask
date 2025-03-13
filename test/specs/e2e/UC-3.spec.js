@@ -1,3 +1,7 @@
+import loginPage from '../../pages/LoginPage.js';
+import DataProvider from "../../../utils/dataProvider.js";
+import MainPage from "../../pages/MainPage.js";
+
 describe("Test Login form with credentials by passing Username & Password", () => {
 
     beforeEach( async () => {
@@ -5,22 +9,21 @@ describe("Test Login form with credentials by passing Username & Password", () =
     })
     
 
-    it("Should validate proper page title after successfully login in ", async() => {
+    it("Should validate the title 'Swag Labs' in the dashboard.", async() => {
+        const { username, password, expectedError, expectedTitle } = DataProvider.loginData['UC-3'];
         //Finding input elements and setting values into it
-       await $('//input[@id="user-name"]').setValue("standard_user");
-       await $('//input[@id="password"]').setValue("secret_sauce");
+        await loginPage.enterUsername(username);
+        await loginPage.enterPassword(password);
 
        //Hit the "Login" button
 
-       await $('//input[@id="login-button"]').click();
+       await loginPage.submitLogin();
 
-        //Check the page title: 'Swag Labs'.
+       expect(await MainPage.isPageDisplayed()).toBe(true);
 
-        await expect(browser).toHaveTitle('Swag Labs')
-
-        // await expect($(`//div[contains(@class, 'app_logo')]`)).toHaveTitle
-        
-    
+       // And the header title should display "Swag Labs"
+       const loggedInTitle = await MainPage.loggedIn.getLogoText();
+       expect(loggedInTitle).toBe(expectedTitle);
 
 
     });

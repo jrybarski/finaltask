@@ -17,7 +17,8 @@ const DataProvider = {
         'UC-3': {
             username: 'standard_user',
             password: 'secret_sauce',
-            expectedError: ''
+            expectedError: '',
+            expectedTitle: 'Swag Labs'
         }
     }
 };
