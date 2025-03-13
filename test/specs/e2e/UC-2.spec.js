@@ -1,4 +1,7 @@
-describe("Test Login form with credentials by passing Username", () => {
+import loginPage from '../../pages/LoginPage.js';
+import DataProvider from "../../../utils/dataProvider.js";
+
+describe("Test Login form with empty password credential", () => {
 
     beforeEach( async () => {
         await browser.url("/");
@@ -6,27 +9,24 @@ describe("Test Login form with credentials by passing Username", () => {
     
 
     it("Should validate proper error 'Password is required'", async() => {
+        const { username, password, expectedError } = DataProvider.loginData['UC-2'];
         //Finding input elements and setting values into it
-       await $('//input[@id="user-name"]').setValue("a");
-       await $('//input[@id="password"]').setValue("b");
+        await loginPage.enterUsername(username);
+        await loginPage.enterPassword(password);
 
-       //Deleting value from password input
-       
-        await $('//input[@id="password"]').click();
-        await browser.keys('Backspace');
-        
-        //checking if password input value is empty
-        
-       await expect($('//input[@id="password"]')).toHaveText('');
+
+       //Deleting value from input password
+       for(let i=0; i < password.length; i++) {
+        await loginPage.clearInput('password');
+       };
 
        //Hit the "Login" button
 
-       await $('//input[@id="login-button"]').click();
+       await loginPage.submitLogin();
 
-        //Check the error messages: "Password is required".
-       await expect($(`//div[contains(@class, 'error-message-container')]`)).toHaveText("Epic sadface: Password is required");
-    
-
+        //Check the error messages: "Username is required".
+        const errorMessage = await loginPage.getErrorMessage();
+        expect(errorMessage).toBe(expectedError);
 
     });
 })
